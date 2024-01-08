@@ -1,0 +1,72 @@
+
+
+|#######################################################################|
+|    Django Project named filemanVer1                                   |
+|        - FilemanVer1 is the project name but also an app name         |
+|                                                                       |
+|                                                                       |
+|#############  Basic knowledge  #######################################|
+    This stack is composed as a single project however the site runs
+    as two seperate codespaces, Django and React. Webpack is whats 
+    known as a web compiler or bundler, a tool that takes a project
+    (react project) and compiles it into a single file called a bundle.
+    This bundle is then served by django as a static file. Babel is a
+    plugin/addon for webpack that handles the compiling of different 
+    file types. In this manner any changes to the frontend are only
+    realised after the bundle has been recompiled. The benfit of this
+    configuration is bundle versioning, greater preformance at scale,
+    and webcaching. The downside of this configuration is advanced
+    complexity because the backend (django/rest) and the frontend (react)
+    are effectivly seperate but intertwined. Both the frontend and backend
+    have their own set of urls/routes. The frontend urls navigate the
+    webfiles that are displayed to the user (html, css, js) while the backend
+    urls are data endpoints accessed by making requests from the
+    frontend. Enter the complexity. Becuase the frontend is still served
+    by django, frontend routes have to be defined in the
+    Frontend.urls.py and the App.js files. Additionlly careful
+    consideration is needed when defining file handling of both internal
+    and user files. Additionlly it is best to avoid making changes to
+    the stack configuration since CORS errors can arise easily.
+
+|#############  Stack Start Guide  #########################################|
+
+From the main folder run "python manage.py runserver"
+If hosting on network run "python manage.py runserver 192.168.xxx.xxx" to host from your computer
+***** This is a development server NOT a production server.
+ 
+From the frontend app directory run "npm run dev" to run webstack in development mode and automatically recompile all of the react project. 
+From the frontend app directory run "npm run build" to run webstack in production mode and automatically recompile all of the react project. 
+Be aware. Most web browsers turn on caching by default which may need to be disabled to see changes.
+Pressing F12 to see dev tools often disables this caching.
+
+Standard npm commands remain unchanged. npm run babel is also available
+
+
+|#############  BUILT IN APPS  #########################################|
+
+FilemanVer1 - base app representing the project
+    - settings.py 
+        - site settings for configuring addons, security, storage, and more 
+        - comes preconfigured with JWT authentication, and staticfile directory
+    - urls.py
+        - url routing from the sites base url Ex. if the site is example.com then filemanVer1.urls.py routes to other site apps such as example.com/users or example.com/dashboard. those apps then have their own urls.py for app routs like example.com/users/info
+    - __init__.py  
+        - a built in file for executing code when site is initiated (hence __init__ )
+    - asgi.py
+        - built in file for site (advanced use only)
+    - wsgi.py
+        - built in file for site (advanced use only)    
+
+Frontend - preconfigured django app that stores and serves a react project. This app is where the DReaM magic happens.
+         - This is a standard Django app with a standard react project all in one. 
+    - babel.config.json  **Modify with caution. Advanced knowledge required
+        -config file for the babel compiler
+    - webpack.config.js  **Modify with caution. Advanced knowledge required
+        -config file for webpack
+    - urls.py
+        -step one of adding frontend routes
+    - /src/
+        - standard react app files and components 
+
+UserApp - an empty application that can be used for expanding the default user 
+DashboardApp - an empty application that a dashboard could be built in
